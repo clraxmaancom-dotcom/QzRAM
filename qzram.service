@@ -1,0 +1,14 @@
+[Unit]
+Description=QzRAM compressed swap for memory-hungry applications
+After=systemd-modules-load.service
+Before=swap.target
+ConditionPathExists=/usr/local/sbin/qzram-setup.sh
+
+[Service]
+Type=oneshot
+ExecStartPre=/sbin/modprobe qzram
+ExecStart=/usr/local/sbin/qzram-setup.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
